@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\User;
 use Auth;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +33,11 @@ class HomeController
 //            return $exercises;
 
         }else {
-            return view('home');
+            $users = User::all()->count();
+            $clients = Patients::all()->count();
+            $exercis = Exercise::all()->count();
+            $program = Program::all()->count();
+            return view('home',compact('users','clients','exercis','program'));
         }
     }
 }
