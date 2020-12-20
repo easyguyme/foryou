@@ -118,7 +118,7 @@
                             @foreach($exercises as $key => $exercise)
                             <div class="col-12 col-md-6 col-lg-4">
                                 <div class="card">
-                                    <a href="{{ route('admin.exercises.show', $exercise) }}"><img class="card-img-top" src="{{ $exercise->getMedia('exercises')[0]->getUrl()}}" alt="Card image cap"></a>
+                                    <a href="{{ route('admin.exercises.show', $exercise) }}"><img class="card-img-top" src="{{ $exercise->getMedia('exercises')[0]->getUrl('thumb')}}" alt="Card image cap"></a>
                                     <div class="card-body">
                                         <a href="{{ route('admin.exercises.show', $exercise) }}"><h5 class="card-title">{{ $exercise->name}}</h5></a>
                                         <p class="card-text">{{$exercise->description}}.</p>
