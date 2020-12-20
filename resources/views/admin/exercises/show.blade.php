@@ -1352,8 +1352,8 @@
                                                                     <ul id="lightgallery" class="list-unstyled row">
                                                                         @if($image->name=='start')
                                                                         <li class="col-xs-6 col-sm-4 col-md-3"
-                                                                            data-responsive="{{ $image->getUrl('thumb')}}, {{ $image->getUrl('thumb')}}, {{ $image->getUrl('thumb')}}"
-                                                                            data-src="{{ $image->getUrl('thumb')}}"
+                                                                            data-responsive="{{ $image->getUrl()}}, {{ $image->getUrl()}}, {{ $image->getUrl()}}"
+                                                                            data-src="{{ $image->getUrl()}}"
                                                                             data-sub-html="<h4>{{$exercise->description}}</h4><p>{{$exercise->instruction}}.</p>"
                                                                             data-download-url="false">
 
@@ -1389,8 +1389,8 @@
                                                                     <ul id="lightgallery2" class="list-unstyled row">
                                                                         @if($image->name=='end')
                                                                             <li class="col-xs-6 col-sm-4 col-md-3"
-                                                                                data-responsive="{{ $image->getUrl('thumb')}}, {{ $image->getUrl('thumb')}}, {{ $image->getUrl('thumb')}}"
-                                                                                data-src="{{ $image->getUrl('thumb')}}"
+                                                                                data-responsive="{{ $image->getUrl()}}, {{ $image->getUrl()}}, {{ $image->getUrl()}}"
+                                                                                data-src="{{ $image->getUrl()}}"
                                                                                 data-sub-html="<h4>{{$exercise->description}}</h4><p>{{$exercise->instruction}}.</p>"
                                                                                 data-download-url="false">
 

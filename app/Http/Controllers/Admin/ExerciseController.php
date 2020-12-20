@@ -154,10 +154,11 @@ class ExerciseController extends Controller
     public function destroy(Exercise $exercise)
     {
         abort_if(Gate::denies('exercise_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
+        DB::table('projects')->where('exercise_id',$exercise->id)->delete();
         $exercise->delete();
 
         return back();
+//        return $exercise->id;
     }
 
 
