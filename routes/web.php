@@ -27,6 +27,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     //Workouts
     Route::post('workouts/add', 'WorkoutController@massAdd')->name('workouts.massAdd');
     Route::resource('workouts', 'WorkoutController');
+    Route::delete('workouts/del/{user_id}/{workout_id}', 'WorkoutController@destroys')->name('workouts.destroys');
 
     Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
     Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);

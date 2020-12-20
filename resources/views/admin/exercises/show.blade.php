@@ -1294,8 +1294,15 @@
 
                             <div class="row">
                                 <div class="col-md-12 text-right">
+
+                                        @if(Auth::user()->roles->implode('title',', ')=='Admin')
                                     <a href="{{ route('admin.exercises.index') }}"
                                        class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
+                                        @else
+
+                                            <a href="{{ url('/') }}"
+                                               class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
+                                        @endif
                                 </div>
                             </div>
                             <div class="row">

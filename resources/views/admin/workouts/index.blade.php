@@ -70,7 +70,7 @@
                                             <strong>{{ $key+1 }}.</strong>
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.exercises.show', $exercise) }}">{{ $exercise->name}}</a>
+                                            <a href="{{ route('admin.programs.show', $exercise) }}">{{ $exercise->name}}</a>
                                         </td>
                                         <td>
                                             {{ $exercise->tags }}
@@ -79,7 +79,7 @@
 
                                         <td>
                                             @can('exercise_show')
-                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.exercises.show', $exercise->id) }}">
+                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.programs.show', $exercise->id) }}">
                                                     {{ trans('global.view') }}
                                                 </a>
                                             @endcan
@@ -111,7 +111,7 @@
   let deleteButtonTrans = 'Add Selected';
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.programs.massAdd') }}",
+    url: "{{ route('admin.workouts.massAdd') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var exercise_id = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -120,7 +120,7 @@
         var user_id = $("#user_id").val();
 
       if (exercise_id.length === 0) {
-            alert('{{ __('No exercise was selected') }}');
+            alert('{{ __('No program was selected') }}');
 
             return
         }

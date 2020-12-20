@@ -89,7 +89,7 @@
             <div class="card-header card-header-primary">
                 <h4 class="card-title">
 
-                    {{ __(' My Exercises') }}
+                    {{ __(' My Programs') }}
                 </h4>
             </div>
 
@@ -141,7 +141,7 @@
                                     <strong>{{ $key+1 }}.</strong>
                                 </td>
                                 <td>
-                                    <a href="{{ route('admin.exercises.show', $exercise) }}">{{ $exercise->name}}</a>
+                                    <a href="{{ route('admin.programs.show', $exercise) }}">{{ $exercise->name}}</a>
                                 </td>
                                 <td>
                                     {{ $exercise->tags }}
@@ -150,7 +150,7 @@
 
                                 <td>
                                     @can('exercise_show')
-                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.exercises.show', $exercise->id) }}">
+                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.programs.show', $exercise->id) }}">
                                             {{ trans('global.view') }}
                                         </a>
                                     @endcan

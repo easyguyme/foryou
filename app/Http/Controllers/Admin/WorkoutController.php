@@ -99,14 +99,22 @@ class WorkoutController extends Controller
      * @param  \App\Workout  $workout
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request){
+
+    }
+
+    public function destroys(Request $request)
     {
         abort_if(Gate::denies('workout_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
+        $user_id = $request->route('user_id');
+        $workout_id = $request->route('workout_id');
+        $matchThese = ['exercise_id'=> $workout_id,'user_id'=> $user_id];
         DB::table('workouts')
-            ->where('exercise_id', $id)
-            ->delete();
+            ->where($matchThese)
+        ->delete();
         return redirect()->back() ->withInput()->withStatus(__('Workout successfully deleted.'));
+
+
     }
 
     public function massAdd(Request $request)
@@ -123,6 +131,6 @@ class WorkoutController extends Controller
             $err=Workout::create($data);
 
         }
-        return response()->json(array('success' => true,'message' => 'Exercise successfully Assigned to the patient'), 200);
+        return response()->json(array('success' => true,'message' => 'Program successfully Assigned to the patient'), 200);
     }
 }

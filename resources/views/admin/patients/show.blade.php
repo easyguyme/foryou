@@ -91,7 +91,7 @@
         <div class="card-header card-header-primary">
             <h4 class="card-title">
 
-                {{ __(' Exercises Assigned to this Patient') }}
+                {{ __(' Programs Assigned to this Patient') }}
             </h4>
         </div>
 
@@ -125,7 +125,9 @@
                         <th>
                             {{ __('Tags') }}
                         </th>
-
+                        <th>
+                            {{ __('Added') }}
+                        </th>
 
                         <th>
                             &nbsp;
@@ -143,16 +145,18 @@
                                 <strong>{{ $key+1 }}.</strong>
                             </td>
                             <td>
-                                <a href="{{ route('admin.exercises.show', $exercise) }}">{{ $exercise->name}}</a>
+                                <a href="{{ route('admin.programs.show', $exercise) }}">{{ $exercise->name}}</a>
                             </td>
                             <td>
                                 {{ $exercise->tags }}
                             </td>
-
+                            <td>
+                                {{ $exercise->created_at->diffForHumans() }}
+                            </td>
 
                             <td>
                                 @can('exercise_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.exercises.show', $exercise->id) }}">
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.programs.show', $exercise->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
@@ -160,7 +164,7 @@
 
 
                                 @can('workout_delete')
-                                    <form action="{{ route('admin.workouts.destroy', $exercise->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                    <form action="{{ route('admin.workouts.destroys', [$patient->user->id,$exercise->id]) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -186,7 +190,7 @@
         $(function () {
             let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
                     @can('exercise_delete')
-            let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
+            {{--let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'--}}
 
             @endcan
 

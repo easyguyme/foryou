@@ -71,6 +71,10 @@ class ProgramController extends Controller
             array_push($exercises,$response[0]);
         }
         return view('admin.programs.show', compact('exercises','program'));
+//        foreach ($exercises as $item){
+//
+//            return $item->getMedia('exercises')[0]->getUrl();
+//        }
     }
 
     /**

@@ -37,7 +37,9 @@
         </div>
 
         <div class="card-body">
-
+            <a style="margin-top:20px;" class="btn btn-info btn-sm float-right" href="{{ url()->previous() }}">
+                {{ __('global.back_to_list') }}
+            </a>
             <div class="mb-2">
                 <table class="table table-bordered table-striped">
                     <tbody>
@@ -116,7 +118,7 @@
                             @foreach($exercises as $key => $exercise)
                             <div class="col-12 col-md-6 col-lg-4">
                                 <div class="card">
-                                    <a href="{{ route('admin.exercises.show', $exercise) }}"><img class="card-img-top" src="{{ $exercise->getMedia('exercises')[0]->getUrl('thumb')}}" alt="Card image cap"></a>
+                                    <a href="{{ route('admin.exercises.show', $exercise) }}"><img class="card-img-top" src="{{ $exercise->getMedia('exercises')[0]->getUrl()}}" alt="Card image cap"></a>
                                     <div class="card-body">
                                         <a href="{{ route('admin.exercises.show', $exercise) }}"><h5 class="card-title">{{ $exercise->name}}</h5></a>
                                         <p class="card-text">{{$exercise->description}}.</p>

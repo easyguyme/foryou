@@ -9,6 +9,7 @@ use App\Http\Requests\MassDestroyUserRequest;
 use App\Http\Requests\StorePatientRequest;
 use App\Http\Requests\UpdatePatientRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Program;
 use App\Role;
 use App\Patients;
 use App\User;
@@ -82,7 +83,7 @@ class PatientsController extends Controller
         $exercise_ids =Workout::where('user_id',$patient->user->id)->get(['status','exercise_id']);
         $exercises = array();
         foreach($exercise_ids as $patien){
-            $response = Exercise::where('id',$patien->exercise_id)->get();
+            $response = Program::where('id',$patien->exercise_id)->get();
 //            $exercises = $response;
             array_push($exercises,$response[0]);
         }

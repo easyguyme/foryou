@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Exercise;
 use App\Patients;
 use App\Workout;
+use App\Program;
 use Gate;
 class HomeController
 {
@@ -18,15 +19,17 @@ class HomeController
         if ($role=='User'){
             $patient =Patients::findorFail(auth()->user()->patient->id);
             $exercise_ids =Auth::user()->workouts()->get();//Workout::where('user_id',$patient->user->id)->get(['status','exercise_id']);
+
             $exercises = array();
             foreach($exercise_ids as $patien){
-                $response = Exercise::where('id',$patien->exercise_id)->get();
+                $response = Program::where('id',$patien->exercise_id)->get();
 
                 array_push($exercises,$response[0]);
             }
 
 
             return view('admin.workouts.show',compact('exercises','patient'));
+//            return $exercises;
 
         }else {
             return view('home');
