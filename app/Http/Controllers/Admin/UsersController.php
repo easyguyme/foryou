@@ -11,7 +11,7 @@ use App\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-
+use Spatie\WelcomeNotification\ReceivesWelcomeNotification;
 class UsersController extends Controller
 {
     public function index()
@@ -34,6 +34,7 @@ class UsersController extends Controller
 
     public function store(StoreUserRequest $request)
     {
+
         $user = User::create($request->all());
         $user->roles()->sync($request->input('roles', []));
 

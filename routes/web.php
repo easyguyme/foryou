@@ -1,9 +1,14 @@
 <?php
+use Spatie\WelcomeNotification\WelcomesNewUsers;
+use App\Http\Controllers\Auth\WelcomeController;
 
 Route::redirect('/', '/login');
 Route::redirect('/home', '/admin');
 Auth::routes(['register' => false]);
-
+Route::group(['middleware' => ['web', WelcomesNewUsers::class,]], function () {
+    Route::get('welcome/{user}', [WelcomeController::class, 'showWelcomeForm'])->name('welcome');
+    Route::post('welcome/{user}', [WelcomeController::class, 'savePassword']);
+});
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index')->name('home');
     // Permissions

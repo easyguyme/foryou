@@ -18,7 +18,7 @@ use DB;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-
+use Spatie\WelcomeNotification\ReceivesWelcomeNotification;
 class PatientsController extends Controller
 {
     /**
@@ -57,6 +57,7 @@ class PatientsController extends Controller
         $data = request()->except(['_token', '_method']);
         $data['created_by'] = auth()->user()->name;
         $pat = Patients::where('user_id','=',$request->user_id)->exists();
+        $user = User::find($request->user_id);
         if ($pat){
             return redirect()->back() ->withInput()->withErrors(['error' => 'Patient Already exists']);
         }else{
@@ -64,6 +65,9 @@ class PatientsController extends Controller
             DB::table('users')
                 ->where('id', $request->user_id)
                 ->update(['registered' => true]);
+
+            $expiresAt = now()->addDay();
+            $user->sendWelcomeNotification($expiresAt);
             return redirect()->route('admin.patients.index')->withStatus(__('Patient successfully created.'));
         }
 
