@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Exercise;
 use App\Http\Controllers\Controller;
 
+use App\Mail\NewProgramNotification;
 use App\Program;
 use App\User;
 use App\Patients;
@@ -14,6 +15,7 @@ use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use DB;
+use Illuminate\Support\Facades\Mail;
 class WorkoutController extends Controller
 {
     /**
@@ -123,6 +125,9 @@ class WorkoutController extends Controller
         $data = request()->except(['_token','_method']);
         $exercises = $request->exercise_id;
         $user_id = $request->user_id;
+        $users =User::findorFail($user_id);
+        $name = $users[0]->name;
+        $email = $users[0]->email;
         foreach ($exercises as $exercise){
             $data['created_by'] = auth()->user()->name;
             $data['status'] =1;
@@ -131,6 +136,7 @@ class WorkoutController extends Controller
             $err=Workout::create($data);
 
         }
+        Mail::to($email)->send(new NewProgramNotification($name));
         return response()->json(array('success' => true,'message' => 'Program successfully Assigned to the patient'), 200);
     }
 }

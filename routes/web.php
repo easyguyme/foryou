@@ -45,4 +45,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('programs/destroy', 'ProgramController@massDestroy')->name('programs.massDestroy');
     Route::delete('programs/del', 'ProgramController@massDelete')->name('programs.massDelete');
     Route::resource('programs', 'ProgramController');
+    Route::get('/send/email', 'HomeController@mail')->name('sendmail');
 });

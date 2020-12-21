@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\Mail\NewProgramNotification;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
+
 use Symfony\Component\HttpFoundation\Response;
 use App\Exercise;
 use App\Patients;
@@ -15,29 +17,31 @@ class HomeController
 {
     public function index()
     {
-                abort_if(Gate::denies('patient_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $role =auth()->user()->roles->implode('title',', ');
-        if ($role=='User'){
-            $patient =Patients::findorFail(auth()->user()->patient->id);
-            $exercise_ids =Auth::user()->workouts()->get();//Workout::where('user_id',$patient->user->id)->get(['status','exercise_id']);
+        abort_if(Gate::denies('patient_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $role = auth()->user()->roles->implode('title', ', ');
+        if ($role == 'User') {
+            $patient = Patients::findorFail(auth()->user()->patient->id);
+            $exercise_ids = Auth::user()->workouts()->get();//Workout::where('user_id',$patient->user->id)->get(['status','exercise_id']);
 
             $exercises = array();
-            foreach($exercise_ids as $patien){
-                $response = Program::where('id',$patien->exercise_id)->get();
+            foreach ($exercise_ids as $patien) {
+                $response = Program::where('id', $patien->exercise_id)->get();
 
-                array_push($exercises,$response[0]);
+                array_push($exercises, $response[0]);
             }
 
 
-            return view('admin.workouts.show',compact('exercises','patient'));
-//            return $exercises;
+            return view('admin.workouts.show', compact('exercises', 'patient'));
+//            return auth()->user();
 
-        }else {
+        } else {
             $users = User::all()->count();
             $clients = Patients::all()->count();
             $exercis = Exercise::all()->count();
             $program = Program::all()->count();
-            return view('home',compact('users','clients','exercis','program'));
+            return view('home', compact('users', 'clients', 'exercis', 'program'));
         }
     }
+
+
 }
